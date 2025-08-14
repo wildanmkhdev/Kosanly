@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
@@ -14,4 +15,8 @@ class City extends Model
         'slug',
 
     ];
+    public function boardingHouses()
+    {
+        return $this->hasMany(BoardingHouse::class);
+    }
 }
