@@ -28,4 +28,21 @@ class BoardingHouse extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    // kalau pakai has many name functionnya wajib jamak atau pakai s
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
+    public function bonuses()
+    {
+        return $this->hasMany(Bonus::class);
+    }
+    public function testimonials()
+    {
+        return $this->hasMany(Testimonial::class);
+    }
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

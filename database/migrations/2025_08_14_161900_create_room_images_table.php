@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('room_images', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('room_id')->constrained();
+            $table->string('image');
         });
     }
 
