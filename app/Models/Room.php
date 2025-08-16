@@ -15,7 +15,6 @@ class Room extends Model
         'square_feet',
         'price_per_month',
         'is_availabe',
-
     ];
     // kalau dai belongsto name function gak boleh jamak atua pakai s
     public function roomImages()
