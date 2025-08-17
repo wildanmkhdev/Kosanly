@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\Cities\Schemas;
+namespace App\Filament\Resources\Categories\Schemas;
 
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
-use illuminate\Support\Str;
+use Illuminate\Support\Str;
 
-class CityForm
+class CategoryForm
 {
     public static function configure(Schema $schema): Schema
     {
@@ -15,16 +15,15 @@ class CityForm
             ->components([
                 FileUpload::make('image')
                     ->image()
-                    ->required()
                     ->columnSpan(2)
-                    ->directory('cities'),
+                    ->required(),
                 TextInput::make('name')
                     ->required()
-                    ->debounce(500) //supoaya tidak lgsg berubah kasi delay 500
-                    ->reactive() // dia bakal trigger aktif
+                    ->debounce(500) // kasi waktu supaya slug otomatis generate dalam 500 s
+                    ->reactive() // untuk trigger input 
                     ->afterStateUpdated(function ($state, callable $set) {
-                        $set('slug', Str::slug($state)); // terus di isini akan membuat slug otomatis ketika name di isi
-                    }),
+                        $set("slug", Str::slug($state));
+                    }), // untuk trigger input 
                 TextInput::make('slug')
                     ->required(),
             ]);
