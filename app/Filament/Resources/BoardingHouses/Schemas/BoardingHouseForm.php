@@ -3,10 +3,12 @@
 namespace App\Filament\Resources\BoardingHouses\Schemas;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
@@ -24,11 +26,12 @@ class BoardingHouseForm
                             ->schema([
                                 FileUpload::make('thumbnail')
                                     ->image()
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/avif'])
                                     ->directory('boarding_house')
                                     ->required(),
                                 TextInput::make('name')
                                     ->required()
-                                    ->debounce(500) // kasi waktu supaya slug otomatis generate dalam 500 s
+                                    ->debounce(100) // kasi waktu supaya slug otomatis generate dalam 500 s
                                     ->reactive() // untuk trigger input 
                                     ->afterStateUpdated(function ($state, callable $set) {
                                         $set("slug", Str::slug($state));
@@ -50,13 +53,58 @@ class BoardingHouseForm
                                 Textarea::make('address')
                                     ->required(),
                             ]),
-                        Tab::make('Tab 2')
+                        Tab::make('Bonus Ngekos')
                             ->schema([
-                                // ...
+                                Repeater::make('bonuses')
+                                    ->relationship('bonuses')
+                                    ->schema([
+                                        FileUpload::make('image')
+                                            ->image()
+                                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/avif'])
+                                            ->directory('bonuses')
+                                            ->required(),
+                                        TextInput::make('name')
+                                            ->required(),
+                                        TextInput::make('description')
+                                            ->required(),
+                                    ])
+                                    ->columns(2)
                             ]),
-                        Tab::make('Tab 3')
+                        Tab::make('Kamar')
                             ->schema([
-                                // ...
+                                Repeater::make('rooms')
+                                    ->relationship('rooms')
+                                    ->schema([
+                                        TextInput::make('name')
+                                            ->required(),
+                                        TextInput::make('room_type')
+                                            ->required(),
+                                        TextInput::make('square_feet')
+                                            ->numeric()
+                                            ->required(),
+                                        TextInput::make('capacity')
+                                            ->numeric()
+                                            ->required(),
+                                        TextInput::make('price_per_month')
+                                            ->numeric()
+                                            ->prefix("IDR")
+                                            ->required(),
+                                        Toggle::make('is_available')
+                                            ->default(true)
+                                            ->required(),
+                                        Repeater::make('images')
+                                            ->relationship('roomImages')
+                                            ->schema([
+                                                FileUpload::make('image')
+                                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/avif'])
+                                                    ->image()
+                                                    ->directory('rooms')
+                                                    ->required(),
+
+
+                                            ])
+                                    ])
+                                    ->columns(2)
                             ]),
                     ])->columnSpan(2)
             ]);
