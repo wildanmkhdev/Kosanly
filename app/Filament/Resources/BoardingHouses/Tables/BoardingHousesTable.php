@@ -22,9 +22,8 @@ class BoardingHousesTable
                 TextColumn::make('slug')
                     ->searchable(),
                 ImageColumn::make('thumbnail')
-                    ->disk('public')
-                    ->height(200)
-                    ->width(300)
+                    ->height(100)
+                    ->width(200)
                     ->columnSpanFull()  // Tambahkan ini
                     ->square(false),
                 TextColumn::make('city_id')

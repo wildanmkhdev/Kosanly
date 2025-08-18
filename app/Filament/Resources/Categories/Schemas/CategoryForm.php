@@ -16,6 +16,8 @@ class CategoryForm
                 FileUpload::make('image')
                     ->image()
                     ->columnSpan(2)
+                    ->directory('cities')
+
                     ->required(),
                 TextInput::make('name')
                     ->required()

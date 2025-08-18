@@ -28,8 +28,8 @@ class BoardingHouseForm
                                     ->image()
                                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/avif'])
                                     ->directory('boarding_house')
-                                    ->disk('public')
-                                    ->visibility('public')
+                                    // ->disk('public')
+                                    // ->visibility('public')
                                     ->required(),
                                 TextInput::make('name')
                                     ->required()
