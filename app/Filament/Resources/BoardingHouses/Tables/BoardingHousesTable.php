@@ -6,6 +6,8 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -19,8 +21,12 @@ class BoardingHousesTable
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                TextColumn::make('thumbnail')
-                    ->searchable(),
+                ImageColumn::make('thumbnail')
+                    ->disk('public')
+                    ->height(200)
+                    ->width(300)
+                    ->columnSpanFull()  // Tambahkan ini
+                    ->square(false),
                 TextColumn::make('city_id')
                     ->numeric()
                     ->sortable(),

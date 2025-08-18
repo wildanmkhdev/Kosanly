@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('square_feet');
             $table->integer('capacity');
             $table->integer('price_per_month');
-            $table->boolean('is_available');
+            // Di migration file
+            $table->boolean('is_available')->default(true);
             $table->timestamps();
         });
     }

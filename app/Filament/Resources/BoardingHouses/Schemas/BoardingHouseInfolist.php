@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\BoardingHouses\Schemas;
 
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
@@ -11,9 +12,12 @@ class BoardingHouseInfolist
     {
         return $schema
             ->components([
+                ImageEntry::make('thumbnail')
+                    ->disk('public')
+                    ->height(200)
+                    ->width(300),
                 TextEntry::make('name'),
                 TextEntry::make('slug'),
-                TextEntry::make('thumbnail'),
                 TextEntry::make('city_id')
                     ->numeric(),
                 TextEntry::make('category_id')
