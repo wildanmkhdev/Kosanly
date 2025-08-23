@@ -17,17 +17,20 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class TransactionResource extends Resource
 {
     protected static ?string $model = Transaction::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::CurrencyDollar;
 
     public static function form(Schema $schema): Schema
     {
         return TransactionForm::configure($schema);
     }
+    protected static string | UnitEnum | null $navigationGroup = 'Boarding House Management';
+
 
     public static function infolist(Schema $schema): Schema
     {

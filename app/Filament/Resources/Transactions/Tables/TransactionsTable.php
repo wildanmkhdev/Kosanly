@@ -20,46 +20,46 @@ class TransactionsTable
             ->columns([
                 TextColumn::make('code')
                     ->searchable(),
-                TextColumn::make('boarding_house_id')
+                TextColumn::make('boardingHouse.name')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('room_id')
+                TextColumn::make('room.name')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
-                TextColumn::make('phone_number')
-                    ->searchable(),
+                // TextColumn::make('email')
+                //     ->label('Email address')
+                //     ->searchable(),
+                // TextColumn::make('phone_number')
+                //     ->searchable(),
                 TextColumn::make('payment_method'),
                 TextColumn::make('payment_status')
                     ->searchable(),
-                TextColumn::make('start_date')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('duration')
-                    ->numeric()
-                    ->sortable(),
+                // TextColumn::make('start_date')
+                //     ->date()
+                //     ->sortable(),
+                // TextColumn::make('duration')
+                //     ->numeric()
+                //     ->sortable(),
                 TextColumn::make('total_amount')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('transaction_date')
                     ->date()
                     ->sortable(),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // TextColumn::make('deleted_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // TextColumn::make('created_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // TextColumn::make('updated_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TrashedFilter::make(),

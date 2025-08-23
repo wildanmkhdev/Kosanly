@@ -15,18 +15,19 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class BoardingHouseResource extends Resource
 {
     protected static ?string $model = BoardingHouse::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::HomeModern;
 
     public static function form(Schema $schema): Schema
     {
         return BoardingHouseForm::configure($schema);
     }
-
+    protected static string | UnitEnum | null $navigationGroup = 'Boarding House Management';
     public static function infolist(Schema $schema): Schema
     {
         return BoardingHouseInfolist::configure($schema);
