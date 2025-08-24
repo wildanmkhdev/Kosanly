@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Testimonial extends Model
 {
-          use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'boarding_house_id',
         'photo',
+        'name',
+        'content',
         'rating',
-        'description',
 
 
     ];

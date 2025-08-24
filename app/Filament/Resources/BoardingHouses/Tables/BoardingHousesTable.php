@@ -6,7 +6,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Infolists\Components\ImageEntry;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -26,12 +25,12 @@ class BoardingHousesTable
                     ->width(200)
                     ->columnSpanFull()  // Tambahkan ini
                     ->square(false),
-                TextColumn::make('city_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('category_id')
-                    ->numeric()
-                    ->sortable(),
+                // TextColumn::make('city_id')
+                //     ->numeric()
+                //     ->sortable(),
+                // TextColumn::make('category_id')
+                //     ->numeric()
+                //     ->sortable(),
                 TextColumn::make('price')
                     ->money()
                     ->sortable(),
@@ -43,6 +42,7 @@ class BoardingHousesTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
             ])
             ->filters([
                 //

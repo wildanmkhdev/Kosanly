@@ -16,8 +16,8 @@ class TestimonialForm
             ->components([
                 Select::make('boarding_house_id')
                     ->relationship('boardingHouse', 'name')
-                    ->required()
-                    ->numeric(),
+                    ->required(),
+
                 FileUpload::make('photo')
                     ->image()
                     ->columnSpan(2)
@@ -26,7 +26,6 @@ class TestimonialForm
                 Textarea::make('content')
                     ->columnSpanFull()
                     ->required(),
-
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('rating')
