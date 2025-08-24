@@ -16,8 +16,8 @@ class Testimonial extends Model
         'content',
         'rating',
 
-
     ];
+    
     // kalau dai belongsto name function gak boleh jamak atua pakai s
     public function boardingHouse()
     {
