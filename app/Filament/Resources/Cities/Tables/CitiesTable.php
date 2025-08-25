@@ -18,8 +18,9 @@ class CitiesTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->visibility('public')
-                    ->disk('public')
+                    // ->visibility('public')
+                    // ->disk('public')
+                    // ini di offkan supaya bsa tampil gambar menbggunakan checkfile di bawah klok gak di off soalnya mmg udh otomatis public dari formnya jadi ga perl lagi kita buat di disni pubic juga
                     ->checkFileExistence(false),
                 // untuk menghindari masalaah disk public yg gak kebaca di admin filamament
 

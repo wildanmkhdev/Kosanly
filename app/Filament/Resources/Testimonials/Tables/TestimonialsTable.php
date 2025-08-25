@@ -21,8 +21,8 @@ class TestimonialsTable
         return $table
             ->columns([
                 ImageColumn::make('photo')
-                    ->visibility('public')
-                    ->disk('public')
+                    // ->visibility('public')
+                    // ->disk('public') off kan
                     ->checkFileExistence(false)
 
                     ->searchable(),

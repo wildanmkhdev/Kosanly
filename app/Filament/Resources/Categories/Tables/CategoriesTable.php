@@ -18,11 +18,10 @@ class CategoriesTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->disk('public')
-                    ->visibility('public')
-                    ->checkFileExistence(false)
-                    // untuk menghindari masalaah disk public yg gak kebaca di admin filamament
-                    ->circular(),
+                    // ->disk('public')
+                    // ->visibility('public') // offkan supaya gambar muncul di admin
+                    ->checkFileExistence(false),
+                // untuk menghindari masalaah disk public yg gak kebaca di admin filamament
 
                 TextColumn::make('name')
                     ->searchable(),
