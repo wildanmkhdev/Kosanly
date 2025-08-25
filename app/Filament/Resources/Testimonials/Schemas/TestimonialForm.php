@@ -20,6 +20,8 @@ class TestimonialForm
 
                 FileUpload::make('photo')
                     ->image()
+                     ->visibility('public')
+                    ->disk('public')
                     ->columnSpan(2)
                     ->directory('testimonials')
                     ->required(),

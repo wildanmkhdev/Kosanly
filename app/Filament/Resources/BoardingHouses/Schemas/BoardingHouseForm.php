@@ -26,6 +26,8 @@ class BoardingHouseForm
                             ->schema([
                                 FileUpload::make('thumbnail')
                                     ->image()
+                                    ->visibility('public')
+                                    ->disk('public')
                                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/avif'])
                                     ->directory('boarding_house')
                                     // ->disk('public')
@@ -62,6 +64,8 @@ class BoardingHouseForm
                                     ->schema([
                                         FileUpload::make('image')
                                             ->image()
+                                            ->visibility('public')
+                                            ->disk('public')
                                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/avif'])
                                             ->directory('bonuses')
                                             ->required(),
@@ -100,6 +104,9 @@ class BoardingHouseForm
                                                 FileUpload::make('image')
                                                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/avif'])
                                                     ->image()
+
+                                                    ->visibility('public')
+                                                    ->disk('public')
                                                     ->directory('rooms')
                                                     ->required(),
 

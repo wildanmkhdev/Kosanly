@@ -16,6 +16,8 @@ class CityForm
                 FileUpload::make('image')
                     ->image()
                     ->required()
+                    ->visibility('public')
+                    ->disk('public')
                     ->columnSpan(2)
                     ->directory('cities'),
                 TextInput::make('name')

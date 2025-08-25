@@ -21,6 +21,10 @@ class TestimonialsTable
         return $table
             ->columns([
                 ImageColumn::make('photo')
+                    ->visibility('public')
+                    ->disk('public')
+                    ->checkFileExistence(false)
+
                     ->searchable(),
                 TextColumn::make('boardingHouse.name')
                     ->numeric()

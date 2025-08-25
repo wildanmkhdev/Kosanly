@@ -17,7 +17,13 @@ class CitiesTable
     {
         return $table
             ->columns([
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->visibility('public')
+                    ->disk('public')
+                    ->checkFileExistence(false),
+                // untuk menghindari masalaah disk public yg gak kebaca di admin filamament
+
+
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('slug')

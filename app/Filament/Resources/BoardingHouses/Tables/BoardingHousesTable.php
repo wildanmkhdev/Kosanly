@@ -21,10 +21,10 @@ class BoardingHousesTable
                 TextColumn::make('slug')
                     ->searchable(),
                 ImageColumn::make('thumbnail')
-                    ->height(100)
                     ->width(200)
-                    ->columnSpanFull()  // Tambahkan ini
-                    ->square(false),
+                    ->checkFileExistence(false)
+                    ->columnSpanFull()
+                    ->circular(),
                 // TextColumn::make('city_id')
                 //     ->numeric()
                 //     ->sortable(),

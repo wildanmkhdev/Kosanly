@@ -18,6 +18,7 @@ class CategoryForm
                     ->columnSpan(2)
                     ->visibility('public')
                     ->disk('public')
+                    ->image()
                     ->directory('categories')
 
                     ->required(),

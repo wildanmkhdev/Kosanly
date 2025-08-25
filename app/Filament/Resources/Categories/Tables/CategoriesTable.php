@@ -20,7 +20,10 @@ class CategoriesTable
                 ImageColumn::make('image')
                     ->disk('public')
                     ->visibility('public')
+                    ->checkFileExistence(false)
+                    // untuk menghindari masalaah disk public yg gak kebaca di admin filamament
                     ->circular(),
+
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('slug')
