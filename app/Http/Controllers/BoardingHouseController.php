@@ -26,4 +26,9 @@ class BoardingHouseController extends Controller
         $cities = $this->cityRepository->getAllCities();
         return view('pages.boarding-house.find', compact('cities', 'categories'));
     }
+    public function findResults(Request $request)
+    {
+        $boardingHouses = $this->boardingHouseRepository->getAllBoardingHouses($request->search, $request->city, $request->category);
+        return view('pages.boarding-house.index', compact('boardingHouses'));
+    }
 }

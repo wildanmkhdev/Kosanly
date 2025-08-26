@@ -24,3 +24,5 @@ Route::get(
     '/find-kos',
     [BoardingHouseController::class, 'find']
 )->name('find-kos');
+Route::get('/find-kos', [BoardingHouseController::class, 'find'])->name('find-kos');
+Route::get('/find-results', [BoardingHouseController::class, 'findResults'])->name('find-kos.results');
