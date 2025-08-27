@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Room extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'boarding_house_id',
         'name',
@@ -19,7 +19,7 @@ class Room extends Model
         'is_available',
     ];
     // kalau dai belongsto name function gak boleh jamak atua pakai s
-    public function roomImages()
+    public function images()
     {
         return $this->hasMany(RoomImage::class);
     }
