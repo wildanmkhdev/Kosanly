@@ -36,4 +36,10 @@ class BoardingHouseController extends Controller
         $boardingHouse = $this->boardingHouseRepository->getBoardingHouseBySLug($slug);
         return view('pages.boarding-house.show', compact('boardingHouse'));
     }
+    public function rooms($slug)
+    {
+        $boardingHouse = $this->boardingHouseRepository->getBoardingHouseBySLug($slug);
+        $cities = $this->cityRepository->getAllCities();
+        return view('pages.boarding-house.rooms', compact('boardingHouse', 'cities'));
+    }
 }

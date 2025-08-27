@@ -61,13 +61,13 @@
                                         <div class="flex items-center gap-[6px]">
                                             <img src="assets/images/icons/location.svg" class="w-5 h-5 flex shrink-0"
                                                 alt="icon">
-                                            <p class="text-sm text-ngekos-grey">{{ $boardingHouse->city->name }}</p>
+                                            <p class="text-sm text-ngekos-grey">{{ $boardingHouse->city?->name }}</p>
                                         </div>
                                         <div class="flex items-center gap-[6px]">
                                             <img src="assets/images/icons/3dcube.svg" class="w-5 h-5 flex shrink-0"
                                                 alt="icon">
                                             <p class="text-sm text-ngekos-grey">In
-                                                {{ $boardingHouse->category->name }}</p>
+                                                {{ $boardingHouse->category?->name }}</p>
                                         </div>
                                         <div class="flex items-center gap-[6px]">
                                             <img src="assets/images/icons/profile-2user.svg" class="w-5 h-5 flex shrink-0"
@@ -146,7 +146,7 @@
                                 <div class="flex items-center gap-[6px]">
                                     <img src="assets/images/icons/location.svg" class="w-5 h-5 flex shrink-0"
                                         alt="icon">
-                                    <p class="text-sm text-ngekos-grey">{{ $boardingHouse->city->name }}</p>
+                                    <p class="text-sm text-ngekos-grey">{{ $boardingHouse->city?->name }}</p>
                                 </div>
                                 <div class="flex items-center gap-[6px]">
                                     <img src="assets/images/icons/profile-2user.svg" class="w-5 h-5 flex shrink-0"

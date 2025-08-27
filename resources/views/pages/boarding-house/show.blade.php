@@ -7,7 +7,7 @@
             class="absolute top-0 w-full h-[143px] bg-[linear-gradient(180deg,#070707_0%,rgba(7,7,7,0)_100%)] z-10">
         </div>
         <div id="TopNavAbsolute" class="absolute top-[60px] flex items-center justify-between w-full px-5 z-10">
-            <a href="index.html"
+            <a href="{{ route('home') }}"
                 class="w-12 h-12 flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-white/10 backdrop-blur-sm">
                 <img src="{{ asset('assets/images/icons/arrow-left-transparent.svg') }}" class="w-8 h-8" alt="icon">
             </a>
@@ -171,11 +171,11 @@
             <div class="fixed bottom-5 w-full max-w-[640px] px-5 z-10">
                 <div class="flex items-center justify-between rounded-[40px] py-4 px-6 bg-ngekos-black">
                     <p class="font-bold text-xl leading-[30px] text-white">
-                        Rp 1.493.593
+                        {{ number_format($boardingHouse->price, 0, ',', '.') }}
                         <br>
                         <span class="text-sm font-normal">/bulan</span>
                     </p>
-                    <a href="room-available.html"
+                    <a href="{{ route('kos.rooms', $boardingHouse->slug) }}"
                         class="flex shrink-0 rounded-full py-[14px] px-5 bg-ngekos-orange font-bold text-white">Book
                         Now</a>
                 </div>
