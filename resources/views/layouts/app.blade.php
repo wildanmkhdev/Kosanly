@@ -13,12 +13,12 @@
 
 <body>
     <div id="Content-Container"
-        class="relative flex flex-col w-full max-w-[640px] min-h-screen mx-auto bg-white overflow-x-hidden">
+        class="relative flex flex-col w-full max-w-full lg:max-w-none min-h-screen mx-auto lg:mx-0 bg-white overflow-x-hidden">
         @yield('content')
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{{ asset('assets/js/index.js') }}"></script>
     <script src="js/details.js"></script>
-@yield('scripts')
+    @yield('scripts')
 </body>
