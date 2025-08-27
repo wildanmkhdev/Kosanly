@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\interfaces\BoardingHouseRepositoryInterface;
 use App\Models\BoardingHouse;
+use App\Models\Room;
 use Illuminate\Database\Eloquent\Builder;
 
 class BoardingHouseRepository implements BoardingHouseRepositoryInterface
@@ -55,5 +56,9 @@ class BoardingHouseRepository implements BoardingHouseRepositoryInterface
   {
     return BoardingHouse::with('rooms.images')->where('slug', $slug)->first();
     //kembalikan data dari model boardinghouse dengan relasi tabel room dan relasi  image di dalamnya  yg klom slug nya = $slug dari paramter ambil lalu ambil  data pertama
+  }
+  public function getBoardingHouseRoomById($id)
+  {
+    return Room::find($id);
   }
 }
