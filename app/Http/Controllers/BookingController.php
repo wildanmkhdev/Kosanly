@@ -25,11 +25,12 @@ class BookingController extends Controller
         $this->transactionRepository->saveTransactionDataToSession($request->all());
         return redirect()->route('booking.information', $slug);
     }
-    public function informations($slug)
+    public function informations(Request $request, $slug)
     {
-        $transaction = $this->transactionRepository->getTransactionDataFromSection();
+        $transaction = $this->transactionRepository->getTransactionDataFromSession();
         $boardingHouse = $this->boardingHouseRepository->getBoardingHouseBySLug($slug);
-        $room = $this->boardingHouseRepository->getBoardingHouseRoomById($transaction['room_id'] ?? null);
+        $room = $this->boardingHouseRepository->getBoardingHouseRoomById($request->query('room_id'));
+
         return view('pages.booking.information', compact('transaction', 'boardingHouse', 'room'));
     }
 }

@@ -6,16 +6,16 @@ use App\interfaces\TransactionRepositoryInterface;
 
 class TransactionRepository implements TransactionRepositoryInterface
 {
-  public function getTransactionDataFromSection()
+  public function getTransactionDataFromSession()
   {
-    return session()->get('/transaction');
+    return session()->get('transaction');
   }
   public function saveTransactionDataToSession($data)
   {
-    $trsansaction = session()->get('/transaction', []);
+    $transaction = session()->get('transaction', []);
     foreach ($data as $key => $value) {
-      $trsansaction[$key] = $value;
+      $transaction[$key] = $value;
     }
-    session()->put('transaction', $trsansaction);
+    session()->put('transaction', $transaction);
   }
 }

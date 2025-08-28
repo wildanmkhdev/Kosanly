@@ -5,6 +5,6 @@ namespace App\interfaces;
 interface  TransactionRepositoryInterface
 {
 
-  public function getTransactionDataFromSection();
+  public function getTransactionDataFromSession();
   public function saveTransactionDataToSession($data);
 }
