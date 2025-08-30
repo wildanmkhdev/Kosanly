@@ -23,20 +23,32 @@ class BookingController extends Controller
     }
     public function booking(Request $request, $slug)
     {
+        // 1. Ambil semua data input dari form booking
+        //    Contoh hasilnya: ['name' => 'Wildan', 'phone' => '0812', 'room_id' => 3]
+        //    lalu kirim ke Repository supaya disimpan sementara di session
         $this->transactionRepository->saveTransactionDataToSession($request->all());
+        // 2. Setelah data disimpan di session,
+        //    user langsung diarahkan (redirect) ke halaman berikutnya
+        //    yaitu route 'booking.information' sambil bawa slug (nama unik kos/produk)
         return redirect()->route('booking.information', $slug);
     }
     public function informations(Request $request, $slug)
     {
+        // 1. Ambil kembali data transaksi yang sebelumnya sudah disimpan di session
         $transaction = $this->transactionRepository->getTransactionDataFromSession();
+        // 2. Ambil data kos (boarding house) berdasarkan slug yang dikirim dari URL
         $boardingHouse = $this->boardingHouseRepository->getBoardingHouseBySLug($slug);
+        // 3. Ambil data kamar berdasarkan id kamar yang dikirim lewat query string
         $room = $this->boardingHouseRepository->getBoardingHouseRoomById($request->query('room_id'));
 
         return view('pages.booking.information', compact('transaction', 'boardingHouse', 'room'));
     }
     public function saveInformation(CostumerInformationStoreRequest $request, $slug)
     {
+        // 1. Validasi data form yang dikirim user sesuai aturan di CostumerInformationStoreRequest
+        //    Jadi cuma data yang valid aja yang boleh masuk.
         $data = $request->validated();
+        // 2. Simpan data hasil validasi tadi ke session (menambah / mengupdate transaction)
         $this->transactionRepository->saveTransactionDataToSession($data);
         dd($this->transactionRepository->getTransactionDataFromSession());
     }
