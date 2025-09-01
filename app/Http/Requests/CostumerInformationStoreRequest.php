@@ -29,7 +29,7 @@ class CostumerInformationStoreRequest extends FormRequest
             'email' => 'required|email',
             'phone' => 'required|string',
             'duration' => 'required',
-            'start_date' => 'required',
+            'start_date' => 'required'
         ];
     }
 }

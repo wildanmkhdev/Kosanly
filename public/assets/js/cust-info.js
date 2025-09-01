@@ -27,17 +27,20 @@ for (let i = today.getDate(); i <= lastDayOfMonth; i++) {
 
     dates.push(realDate);
 
-    datesElement.innerHTML += `
-        <div class="swiper-slide !w-fit py-[2px]">
-            <label class="relative flex flex-col items-center justify-center w-fit rounded-3xl p-[14px_20px] gap-3 bg-white border border-white hover:border-[#91BF77] has-[:checked]:ring-2 has-[:checked]:ring-[#91BF77] transition-all duration-300">
-                <img src="/assets/images/icons/calendar.svg" class="w-8 h-8" alt="icon">
-                <p class="font-semibold text-nowrap">${date.getDate()} ${month}</p>
-   <input type="radio" name="start_date" value="${realDate}" 
-                class="absolute top-1/2 left-1/2 opacity-0"
-                ${i === today.getDate() ? "checked" : ""} required>
-            </label>
-        </div>`;
+    //     datesElement.innerHTML += `
+    //         <div class="swiper-slide !w-fit py-[2px]">
+    //             <label class="relative flex flex-col items-center justify-center w-fit rounded-3xl p-[14px_20px] gap-3 bg-white border border-white hover:border-[#91BF77] has-[:checked]:ring-2 has-[:checked]:ring-[#91BF77] transition-all duration-300">
+    //                 <img src="/assets/images/icons/calendar.svg" class="w-8 h-8" alt="icon">
+    //                 <p class="font-semibold text-nowrap">${date.getDate()} ${month}</p>
+    //    <input type="radio" name="start_date" value="${realDate}"
+    //                 class="absolute top-1/2 left-1/2 opacity-0" ${
+    //                     i === today.getDate() ? "checked" : ""
+    //                 }
+    //            required>
+    //             </label>
+    //         </div>`;
 }
+//  ${i === today.getDate() ? "checked" : ""}
 
 const minusButton = document.getElementById("Minus");
 const plusButton = document.getElementById("Plus");

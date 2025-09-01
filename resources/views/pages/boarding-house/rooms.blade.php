@@ -5,9 +5,9 @@
         class="absolute top-0 w-full h-[230px] rounded-b-[75px] bg-[linear-gradient(180deg,#F2F9E6_0%,#D2EDE4_100%)]">
     </div>
     <div id="TopNav" class="relative flex items-center justify-between px-5 mt-[60px]">
-        <a href="details.html"
+        <a href="{{ route('kos.rooms', $boardingHouse->slug) }}"
             class="w-12 h-12 flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-white">
-            <img src="assets/images/icons/arrow-left.svg" class="w-[28px] h-[28px]" alt="icon">
+            <img src="{{ asset('assets/images/icons/arrow-left.svg') }}" class="w-[28px] h-[28px]" alt="icon">
         </a>
         <p class="font-semibold">Choose Available Room</p>
         <div class="dummy-btn w-12"></div>
@@ -32,8 +32,8 @@
             </div>
         </div>
     </div>
-    <form action="{{ route('booking.information', ['slug' => $boardingHouse->slug]) }}" method="GET"
-        class="relative flex flex-col gap-4 mt-5">
+    <form action="{{ route('booking', $boardingHouse->slug) }}" method="POST" class="relative flex flex-col gap-4 mt-5">
+        @csrf
         <h2 class="font-bold px-5">Available Rooms</h2>
         <div id="RoomsContainer" class="flex flex-col gap-4 px-5">
             @foreach ($boardingHouse->rooms as $room)
@@ -72,7 +72,8 @@
         </div>
         <div id="BottomButton" class="relative flex w-full h-[98px] shrink-0">
             <div class="fixed bottom-[30px] w-full max-w-[640px] px-5 z-10">
-                <button class="w-full rounded-full p-[14px_20px] bg-ngekos-orange font-bold text-white text-center">Continue
+                <button class="w-full rounded-full p-[14px_20px] bg-ngekos-orange font-bold text-white text-center"
+                    type="submit">Continue
                     Booking</button>
             </div>
         </div>

@@ -5,7 +5,7 @@
         class="absolute top-0 w-full h-[230px] rounded-b-[75px] bg-[linear-gradient(180deg,#F2F9E6_0%,#D2EDE4_100%)]">
     </div>
     <div id="TopNav" class="relative flex items-center justify-between px-5 mt-[60px]">
-        <a href="room-available.html"
+        <a href="{{ route('kos.rooms', $boardingHouse->slug) }}"
             class="w-12 h-12 flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-white">
             <img src="{{ asset('assets/images/icons/arrow-left.svg') }}" class="w-[28px] h-[28px]" alt="icon">
         </a>
@@ -65,7 +65,7 @@
         class="relative flex flex-col gap-6 mt-5 pt-5 bg-[#F5F6F8]" method="POST">
         @csrf
         <div class="flex flex-col gap-[6px] px-5">
-            <input type="hidden" name="room_id" value="{{ $room->id }}">
+            <input type="hidden" name="room_id" value="{{ $room->id ?? '' }}">
             <h1 class="font-semibold text-lg">Your Informations</h1>
             <p class="text-sm text-ngekos-grey">Fill the fields below with your valid data</p>
         </div>
@@ -73,9 +73,7 @@
             <div class="flex flex-col w-full gap-2 px-5">
                 <p class="font-semibold">Complete Name</p>
                 <label
-                    class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300 @error('name') border-red-500
-                        
-                    @enderror">
+                    class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300 @error('name') border-red-500 @enderror">
                     <img src="{{ asset('assets/images/icons/profile-2user.svg') }}" class="w-5 h-5 flex shrink-0"
                         alt="icon">
                     <input type="text" name="name" id=""
@@ -89,9 +87,7 @@
             <div class="flex flex-col w-full gap-2 px-5">
                 <p class="font-semibold">Email Address</p>
                 <label
-                    class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300  @error('email') border-red-500
-                        
-                    @enderror">
+                    class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300  @error('email') border-red-500 @enderror">
                     <img src="{{ asset('assets/images/icons/sms.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
                     <input type="email" name="email" id=""
                         class="appearance-none outline-none w-full font-semibold placeholder:text-ngekos-grey placeholder:font-normal"
@@ -107,9 +103,7 @@
         <div class="flex flex-col w-full gap-2 px-5">
             <p class="font-semibold">Phone No</p>
             <label
-                class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300  @error('phone') border-red-500
-                        
-                    @enderror">
+                class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300  @error('phone') border-red-500 @enderror">
                 <img src="{{ asset('assets/images/icons/call.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
                 <input type="tel" name="phone" id=""
                     class="appearance-none outline-none w-full font-semibold placeholder:text-ngekos-grey placeholder:font-normal"
@@ -146,8 +140,11 @@
             <div class="fixed bottom-5 w-full max-w-[640px] px-5 z-10">
                 <div class="flex items-center justify-between rounded-[40px] py-4 px-6 bg-ngekos-black">
                     <div class="flex flex-col gap-[2px]">
-                        <p id="price" class="font-bold text-xl leading-[30px] text-white">
+                        <p id="prices" class="font-bold text-xl leading-[30px] text-white">
                             <!-- price dari js -->
+                            <input type="date" name="start_date"
+                                value="{{ $transaction['start_date'] ?? now()->format('Y-m-d') }}" required>
+
                         </p>
                         <span class="text-sm text-white">Grand Total</span>
                     </div>

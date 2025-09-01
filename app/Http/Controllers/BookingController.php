@@ -32,14 +32,19 @@ class BookingController extends Controller
         //    yaitu route 'booking.information' sambil bawa slug (nama unik kos/produk)
         return redirect()->route('booking.information', $slug);
     }
-    public function informations(Request $request, $slug)
+    public function information(Request $request, $slug)
     {
         // 1. Ambil kembali data transaksi yang sebelumnya sudah disimpan di session
         $transaction = $this->transactionRepository->getTransactionDataFromSession();
         // 2. Ambil data kos (boarding house) berdasarkan slug yang dikirim dari URL
         $boardingHouse = $this->boardingHouseRepository->getBoardingHouseBySLug($slug);
         // 3. Ambil data kamar berdasarkan id kamar yang dikirim lewat query string
-        $room = $this->boardingHouseRepository->getBoardingHouseRoomById($request->query('room_id'));
+        $room = $this->boardingHouseRepository->getBoardingHouseRoomById($transaction['room_id']);
+        if (empty($transaction['start_date'])) {
+            $transaction['start_date'] = now()->format('Y-m-d'); // tanggal hari ini
+            $this->transactionRepository->saveTransactionDataToSession($transaction);
+        }
+
 
         return view('pages.booking.information', compact('transaction', 'boardingHouse', 'room'));
     }
@@ -50,6 +55,16 @@ class BookingController extends Controller
         $data = $request->validated();
         // 2. Simpan data hasil validasi tadi ke session (menambah / mengupdate transaction)
         $this->transactionRepository->saveTransactionDataToSession($data);
-        dd($this->transactionRepository->getTransactionDataFromSession());
+        // dd($this->transactionRepository->getTransactionDataFromSession());
+        return redirect()->route('booking.checkout', $slug);
+    }
+    public function checkout($slug)
+    {
+        $transaction = $this->transactionRepository->getTransactionDataFromSession();
+        // 2. Ambil data kos (boarding house) berdasarkan slug yang dikirim dari URL
+        $boardingHouse = $this->boardingHouseRepository->getBoardingHouseBySLug($slug);
+        // 3. Ambil data kamar berdasarkan id kamar yang dikirim lewat query string
+        $room = $this->boardingHouseRepository->getBoardingHouseRoomById($transaction['room_id']);
+        return view('pages.checkout.information', compact('transaction', 'boardingHouse', 'room'));
     }
 }
