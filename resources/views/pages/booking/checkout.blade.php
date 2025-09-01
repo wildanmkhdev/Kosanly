@@ -7,7 +7,7 @@
     <div id="TopNav" class="relative flex items-center justify-between px-5 mt-[60px]">
         <a href="cust-info.html"
             class="w-12 h-12 flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-white">
-            <img src="assets/images/icons/arrow-left.svg" class="w-[28px] h-[28px]" alt="icon">
+            <img src="{{ asset('assets/images/icons/arrow-left.svg') }}" class="w-[28px] h-[28px]" alt="icon">
         </a>
         <p class="font-semibold">Checkout Koskos</p>
         <div class="dummy-btn w-12"></div>
@@ -16,40 +16,46 @@
         <div class="flex flex-col w-full rounded-[30px] border border-[#F1F2F6] p-4 gap-4 bg-white">
             <div class="flex gap-4">
                 <div class="flex w-[120px] h-[132px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                    <img src="assets/images/thumbnails/details-1.png" class="w-full h-full object-cover" alt="icon">
+                    <img src="{{ asset('storage/' . $boardingHouse->thumbnail) }}" class="w-full h-full object-cover"
+                        alt="icon">
                 </div>
                 <div class="flex flex-col gap-3 w-full">
-                    <p class="font-semibold text-lg leading-[27px] line-clamp-2 min-h-[54px]">Tumbuh Tentram Berada
-                        Rumah Nenek</p>
+                    <p class="font-semibold text-lg leading-[27px] line-clamp-2 min-h-[54px]">{{ $boardingHouse->name }}</p>
                     <hr class="border-[#F1F2F6]">
                     <div class="flex items-center gap-[6px]">
-                        <img src="assets/images/icons/location.svg" class="w-5 h-5 flex shrink-0" alt="icon">
-                        <p class="text-sm text-ngekos-grey">Singapore City</p>
+                        <img src="{{ asset('assets/images/icons/location.svg') }}" class="w-5 h-5 flex shrink-0"
+                            alt="icon">
+                        <p class="text-sm text-ngekos-grey">{{ $boardingHouse->city->name }}</p>
                     </div>
                     <div class="flex items-center gap-[6px]">
-                        <img src="assets/images/icons/profile-2user.svg" class="w-5 h-5 flex shrink-0" alt="icon">
-                        <p class="text-sm text-ngekos-grey">In Housee</p>
+                        <img src="{{ asset('assets/images/icons/profile-2user.svg') }}" class="w-5 h-5 flex shrink-0"
+                            alt="icon">
+                        <p class="text-sm text-ngekos-grey">In {{ $boardingHouse->category->name }}</p>
                     </div>
                 </div>
             </div>
             <hr class="border-[#F1F2F6]">
             <div class="flex gap-4">
                 <div class="flex w-[120px] h-[156px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                    <img src="assets/images/thumbnails/room-1.png" class="w-full h-full object-cover" alt="icon">
+                    <img src="{{ asset('storage/' . ($room?->images?->first()->image ?? 'default.jpg')) }}"
+                        class="w-full h-full object-cover" alt="icon">
                 </div>
                 <div class="flex flex-col gap-3 w-full">
-                    <p class="font-semibold text-lg leading-[27px]">Deluxe Room</p>
+                    <p class="font-semibold text-lg leading-[27px]">{{ $room->name ?? 'kamar tidak ada' }}</p>
                     <hr class="border-[#F1F2F6]">
                     <div class="flex items-center gap-[6px]">
-                        <img src="assets/images/icons/profile-2user.svg" class="w-5 h-5 flex shrink-0" alt="icon">
-                        <p class="text-sm text-ngekos-grey">2 People</p>
+                        <img src="{{ asset('assets/images/icons/profile-2user.svg') }}" class="w-5 h-5 flex shrink-0"
+                            alt="icon">
+                        <p class="text-sm text-ngekos-grey">{{ $room->capacity ?? 'capacity tidak ada' }}People</p>
                     </div>
                     <div class="flex items-center gap-[6px]">
-                        <img src="assets/images/icons/3dcube.svg" class="w-5 h-5 flex shrink-0" alt="icon">
-                        <p class="text-sm text-ngekos-grey">184 sqft flat</p>
+                        <img src="{{ asset('assets/images/icons/3dcube.svg') }}" class="w-5 h-5 flex shrink-0"
+                            alt="icon">
+                        <p class="text-sm text-ngekos-grey">{{ $room->square_feet ?? 'td ada' }} sqft flat</p>
                     </div>
                     <hr class="border-[#F1F2F6]">
-                    <p class="font-semibold text-lg text-ngekos-orange">Rp 793.444<span
+                    <p class="font-semibold text-lg text-ngekos-orange">
+                        {{ number_format($room->price_per_month ?? 0, 0, ',', '.') }}<span
                             class="text-sm text-ngekos-grey font-normal">/bulan</span></p>
                 </div>
             </div>
@@ -59,7 +65,7 @@
         class="accordion group flex flex-col rounded-[30px] p-5 bg-[#F5F6F8] mx-5 mt-5 overflow-hidden has-[:checked]:!h-[68px] transition-all duration-300">
         <label class="relative flex items-center justify-between">
             <p class="font-semibold text-lg">Customer</p>
-            <img src="assets/images/icons/arrow-up.svg"
+            <img src="{{ asset('assets/images/icons/arrow-up.svg') }}"
                 class="w-[28px] h-[28px] flex shrink-0 group-has-[:checked]:rotate-180 transition-all duration-300"
                 alt="icon">
             <input type="checkbox" class="absolute hidden">
@@ -70,21 +76,21 @@
                     <img src="assets/images/icons/profile-2user.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                     <p class="text-ngekos-grey">Name</p>
                 </div>
-                <p class="font-semibold">Sabrina Erisma</p>
+                <p class="font-semibold">{{ $transaction['name'] }}</p>
             </div>
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <img src="assets/images/icons/sms.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                     <p class="text-ngekos-grey">Email</p>
                 </div>
-                <p class="font-semibold">sabrina@ggwp.com.au</p>
+                <p class="font-semibold">{{ $transaction['email'] }}</p>
             </div>
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <img src="assets/images/icons/call.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                     <p class="text-ngekos-grey">Phone</p>
                 </div>
-                <p class="font-semibold">628123982138</p>
+                <p class="font-semibold">{{ $transaction['phone'] }}</p>
             </div>
         </div>
     </div>
@@ -92,7 +98,7 @@
         class="accordion group flex flex-col rounded-[30px] p-5 bg-[#F5F6F8] mx-5 mt-5 overflow-hidden has-[:checked]:!h-[68px] transition-all duration-300">
         <label class="relative flex items-center justify-between">
             <p class="font-semibold text-lg">Booking</p>
-            <img src="assets/images/icons/arrow-up.svg"
+            <img src="{{ asset('assets/images/icons/arrow-up.svg') }}"
                 class="w-[28px] h-[28px] flex shrink-0 group-has-[:checked]:rotate-180 transition-all duration-300"
                 alt="icon">
             <input type="checkbox" class="absolute hidden">
@@ -103,21 +109,24 @@
                     <img src="assets/images/icons/clock.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                     <p class="text-ngekos-grey">Duration</p>
                 </div>
-                <p class="font-semibold">3 Months</p>
+                <p class="font-semibold">{{ $transaction['duration'] }}</p>
             </div>
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <img src="assets/images/icons/calendar.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                     <p class="text-ngekos-grey">Started At</p>
                 </div>
-                <p class="font-semibold">10 Desember 2024</p>
+                <p class="font-semibold">{{ \Carbon\Carbon::parse($transaction['start_date'])->isoFormat('D MMMM YYYY') }}
+                </p>
             </div>
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <img src="assets/images/icons/calendar.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                     <p class="text-ngekos-grey">Ended At</p>
                 </div>
-                <p class="font-semibold">10 Maret 2024</p>
+                <p class="font-semibold">
+                    {{ \Carbon\Carbon::parse($transaction['start_date'])->addMonth(intval($transaction['duration']))->isoFormat('D MMMM YYYY') }}
+                </p>
             </div>
         </div>
     </div>
@@ -165,6 +174,13 @@
                 </label>
             </div>
             <div id="TabContent-Container">
+                @php
+                    $subtotal = $room->price_per_month * $transaction['duration'];
+                    $tax = $subtotal * 0.11;
+                    $insurance = $subtotal * 0.01;
+                    $total = $subtotal - $tax + $insurance;
+                    $downpayment = $total * 0.3;
+                @endphp
                 <div id="DownPayment-Tab" class="tab-content flex flex-col gap-4">
                     <p class="text-sm text-ngekos-grey">Anda perlu melunasi pembayaran secara cash setelah melakukan
                         survey koskos</p>
@@ -180,7 +196,7 @@
                             <img src="assets/images/icons/receipt-2.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                             <p class="text-ngekos-grey">Sub Total</p>
                         </div>
-                        <p class="font-semibold">Rp 69.390.493</p>
+                        <p class="font-semibold">Rp {{ number_format($subtotal, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -188,7 +204,7 @@
                                 alt="icon">
                             <p class="text-ngekos-grey">PPN 11%</p>
                         </div>
-                        <p class="font-semibold">Rp 24.495.392</p>
+                        <p class="font-semibold">Rp {{ number_format($tax, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -196,14 +212,15 @@
                                 alt="icon">
                             <p class="text-ngekos-grey">Insurance</p>
                         </div>
-                        <p class="font-semibold">Rp 890.000</p>
+                        <p class="font-semibold">Rp {{ number_format($insurance, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <img src="assets/images/icons/receipt-text.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                             <p class="text-ngekos-grey">Grand total (30%)</p>
                         </div>
-                        <p id="downPaymentPrice" class="font-semibold">Rp 19.495.499</p>
+                        <p id="downPaymentPrice" class="font-semibold">Rp {{ number_format($downpayment, 0, ',', '.') }}
+                        </p>
                     </div>
                 </div>
                 <div id="FullPayment-Tab" class="tab-content flex flex-col gap-4 hidden">
@@ -221,7 +238,7 @@
                             <img src="assets/images/icons/receipt-2.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                             <p class="text-ngekos-grey">Sub Total</p>
                         </div>
-                        <p class="font-semibold">Rp 69.390.493</p>
+                        <p class="font-semibold">Rp {{ number_format($subtotal, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -229,7 +246,7 @@
                                 alt="icon">
                             <p class="text-ngekos-grey">PPN 11%</p>
                         </div>
-                        <p class="font-semibold">Rp 24.495.392</p>
+                        <p class="font-semibold">Rp {{ number_format($tax, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -237,14 +254,14 @@
                                 alt="icon">
                             <p class="text-ngekos-grey">Insurance</p>
                         </div>
-                        <p class="font-semibold">Rp 890.000</p>
+                        <p class="font-semibold">Rp {{ number_format($insurance, 0, ',', '.') }}</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <img src="assets/images/icons/receipt-text.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                             <p class="text-ngekos-grey">Grand total</p>
                         </div>
-                        <p id="fullPaymentPrice" class="font-semibold">Rp 248.495.499</p>
+                        <p id="fullPaymentPrice" class="font-semibold">Rp {{ number_format($total, 0, ',', '.') }}</p>
                     </div>
                 </div>
             </div>
@@ -265,4 +282,8 @@
             </div>
         </div>
     </form>
+@endsection
+@section('scripts')
+    <script src="{{ asset('js/accodion.js') }}"></script>
+    <script src="{{ asset('js/checkout.js') }}"></script>
 @endsection

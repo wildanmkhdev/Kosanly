@@ -65,6 +65,6 @@ class BookingController extends Controller
         $boardingHouse = $this->boardingHouseRepository->getBoardingHouseBySLug($slug);
         // 3. Ambil data kamar berdasarkan id kamar yang dikirim lewat query string
         $room = $this->boardingHouseRepository->getBoardingHouseRoomById($transaction['room_id']);
-        return view('pages.checkout.information', compact('transaction', 'boardingHouse', 'room'));
+        return view('pages.booking.checkout', compact('transaction', 'boardingHouse', 'room'));
     }
 }
