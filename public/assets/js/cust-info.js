@@ -1,122 +1,191 @@
-const swiperTabs = new Swiper(".swiper", {
+// Initialize Swiper for date selection
+const dateSwiper = new Swiper(".swiper", {
     slidesPerView: "auto",
-    spaceBetween: 14,
-    slidesOffsetAfter: 20,
-    slidesOffsetBefore: 20,
+    spaceBetween: 16,
+    slidesOffsetAfter: 24,
+    slidesOffsetBefore: 24,
+    freeMode: true,
 });
 
-const datesElement = document.querySelector(".select-dates");
-const today = new Date();
-const dates = [];
+// Get DOM elements
+const dateContainer = document.querySelector(".select-dates");
+const currentDate = new Date();
+const availableDates = [];
 
-const lastDayOfMonth = new Date(
-    today.getFullYear(),
-    today.getMonth() + 1,
+// Calculate last day of current month
+const endOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
     0
 ).getDate();
 
-for (let i = today.getDate(); i <= lastDayOfMonth; i++) {
-    const date = new Date(today.getFullYear(), today.getMonth(), i);
-    const month = date.toLocaleString("default", {
-        month: "short",
-    });
+// Generate date options starting from today
+for (let day = currentDate.getDate(); day <= endOfMonth; day++) {
+    const dateObj = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        day
+    );
+    const monthName = dateObj.toLocaleString("en", { month: "short" });
 
-    const realDate = new Date(date.getTime() + 1000 * 60 * 60 * 24)
+    // Create ISO date string (YYYY-MM-DD format)
+    const isoDateString = new Date(dateObj.getTime() + 24 * 60 * 60 * 1000)
         .toISOString()
-        .split("T")[0];
+        .substring(0, 10);
 
-    dates.push(realDate);
+    availableDates.push(isoDateString);
 
-    //     datesElement.innerHTML += `
-    //         <div class="swiper-slide !w-fit py-[2px]">
-    //             <label class="relative flex flex-col items-center justify-center w-fit rounded-3xl p-[14px_20px] gap-3 bg-white border border-white hover:border-[#91BF77] has-[:checked]:ring-2 has-[:checked]:ring-[#91BF77] transition-all duration-300">
-    //                 <img src="/assets/images/icons/calendar.svg" class="w-8 h-8" alt="icon">
-    //                 <p class="font-semibold text-nowrap">${date.getDate()} ${month}</p>
-    //    <input type="radio" name="start_date" value="${realDate}"
-    //                 class="absolute top-1/2 left-1/2 opacity-0" ${
-    //                     i === today.getDate() ? "checked" : ""
-    //                 }
-    //            required>
-    //             </label>
-    //         </div>`;
+    // Create date selection element
+    const dateElement = `
+        <div class="swiper-slide !w-auto py-1">
+            <div class="date-option relative flex flex-col items-center justify-center w-auto rounded-2xl p-3 gap-2 bg-white border-2 border-transparent hover:border-[#91BF77] cursor-pointer transition-all duration-300">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <span class="font-medium text-sm whitespace-nowrap">${day} ${monthName}</span>
+                <input type="radio" name="start_date" value="${isoDateString}" 
+                       class="sr-only date-radio" ${
+                           day === currentDate.getDate() ? "checked" : ""
+                       }>
+            </div>
+        </div>`;
+
+    dateContainer.insertAdjacentHTML("beforeend", dateElement);
 }
-//  ${i === today.getDate() ? "checked" : ""}
 
-const minusButton = document.getElementById("Minus");
-const plusButton = document.getElementById("Plus");
-const durationInput = document.getElementById("Duration");
-const priceElement = document.getElementById("price");
-// const defaultPrice = 793444;
-const maxDuration = 999; // Maximum allowed value
+// Handle date selection clicks
+dateContainer.addEventListener("click", function (event) {
+    const dateOption = event.target.closest(".date-option");
+    if (dateOption) {
+        // Remove active state from all options
+        document.querySelectorAll(".date-option").forEach((option) => {
+            option.classList.remove(
+                "border-[#91BF77]",
+                "ring-2",
+                "ring-[#91BF77]"
+            );
+        });
 
-function updatePrice() {
-    let duration = parseInt(durationInput.value, 10);
+        // Add active state to clicked option
+        dateOption.classList.add(
+            "border-[#91BF77]",
+            "ring-2",
+            "ring-[#91BF77]"
+        );
 
-    // Only update price if the value is a valid number
-    if (!isNaN(duration) && duration >= 1 && duration <= maxDuration) {
-        const totalPrice = defaultPrice * duration;
-        priceElement.innerHTML = `Rp ${totalPrice.toLocaleString()}`;
+        // Check the radio button
+        const radioInput = dateOption.querySelector(".date-radio");
+        if (radioInput) {
+            radioInput.checked = true;
+        }
+    }
+});
+
+// Set initial active state for today's date
+document.addEventListener("DOMContentLoaded", function () {
+    const checkedRadio = document.querySelector(".date-radio:checked");
+    if (checkedRadio) {
+        const parentOption = checkedRadio.closest(".date-option");
+        if (parentOption) {
+            parentOption.classList.add(
+                "border-[#91BF77]",
+                "ring-2",
+                "ring-[#91BF77]"
+            );
+        }
+    }
+});
+
+// Duration control elements
+const decreaseBtn = document.getElementById("Minus");
+const increaseBtn = document.getElementById("Plus");
+const durationField = document.getElementById("Duration");
+const totalPriceDisplay = document.getElementById("price");
+const maximumDuration = 999;
+
+// Update total price calculation
+function calculateTotalPrice() {
+    const durationValue = parseInt(durationField.value, 10);
+
+    if (
+        !isNaN(durationValue) &&
+        durationValue >= 1 &&
+        durationValue <= maximumDuration
+    ) {
+        const calculatedTotal = defaultPrice * durationValue;
+        totalPriceDisplay.innerHTML = `Rp ${calculatedTotal.toLocaleString(
+            "id-ID"
+        )}`;
+    } else {
+        totalPriceDisplay.innerHTML = "Rp 0";
     }
 }
 
-function validateInput(value) {
-    // Replace any non-digit characters and limit to 3 digits
-    value = value.replace(/\D/g, "").slice(0, 3);
+// Validate duration input
+function sanitizeDurationInput(inputValue) {
+    // Remove non-numeric characters and limit to 3 digits
+    let cleanValue = inputValue.replace(/[^\d]/g, "").substring(0, 3);
 
-    // Ensure value is not zero
-    if (parseInt(value, 10) === 0) {
+    // Prevent zero values
+    if (parseInt(cleanValue, 10) === 0) {
         return "1";
     }
 
-    return value;
+    return cleanValue;
 }
 
-// Restrict input to numbers only, with a max of 3 digits
-durationInput.addEventListener("input", () => {
-    let value = validateInput(durationInput.value);
+// Duration input event handlers
+durationField.addEventListener("input", function () {
+    let sanitizedValue = sanitizeDurationInput(durationField.value);
 
-    // Prevent auto-reset to 1 when the input is being cleared for new value
-    if (value === "") {
-        durationInput.value = ""; // Allow the input to be empty
-        priceElement.innerHTML = "Rp 0"; // Optionally show 0 or placeholder
+    // Allow empty input for user typing
+    if (sanitizedValue === "") {
+        durationField.value = "";
+        totalPriceDisplay.innerHTML = "Rp 0";
         return;
     }
 
-    durationInput.value = value;
-    updatePrice();
+    durationField.value = sanitizedValue;
+    calculateTotalPrice();
 });
 
-durationInput.addEventListener("blur", () => {
-    // If the input is empty or zero when it loses focus, set it back to 1
-    if (durationInput.value === "" || parseInt(durationInput.value, 10) === 0) {
-        durationInput.value = "1";
-        updatePrice();
+// Handle input blur (when user clicks away)
+durationField.addEventListener("blur", function () {
+    if (durationField.value === "" || parseInt(durationField.value, 10) === 0) {
+        durationField.value = "1";
+        calculateTotalPrice();
     }
 });
 
-minusButton.addEventListener("click", () => {
-    let value = parseInt(durationInput.value, 10);
-    if (isNaN(value) || value <= 1) {
-        value = 1; // Prevent going below 1
+// Decrease duration button
+decreaseBtn.addEventListener("click", function () {
+    let currentValue = parseInt(durationField.value, 10);
+
+    if (isNaN(currentValue) || currentValue <= 1) {
+        currentValue = 1;
     } else {
-        value--;
+        currentValue--;
     }
-    durationInput.value = value;
-    updatePrice();
+
+    durationField.value = currentValue;
+    calculateTotalPrice();
 });
 
-plusButton.addEventListener("click", () => {
-    let value = parseInt(durationInput.value, 10);
-    if (isNaN(value)) {
-        value = 1; // Default to 1 if invalid
-    } else if (value < maxDuration) {
-        value++;
+// Increase duration button
+increaseBtn.addEventListener("click", function () {
+    let currentValue = parseInt(durationField.value, 10);
+
+    if (isNaN(currentValue)) {
+        currentValue = 1;
+    } else if (currentValue < maximumDuration) {
+        currentValue++;
     } else {
-        value = maxDuration; // Prevent going above 999
+        currentValue = maximumDuration;
     }
-    durationInput.value = value;
-    updatePrice();
+
+    durationField.value = currentValue;
+    calculateTotalPrice();
 });
 
-// Initial price update
-updatePrice();
+// Initialize price display
+calculateTotalPrice();

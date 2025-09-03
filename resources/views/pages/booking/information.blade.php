@@ -62,103 +62,123 @@
         </div>
     </div>
     <form action="{{ route('booking.information.save', $boardingHouse->slug) }}"
-        class="relative flex flex-col gap-6 mt-5 pt-5 bg-[#F5F6F8]" method="POST">
+        class="relative flex flex-col gap-6 mt-5 pt-5 bg-[#F5F6F8] min-h-screen" method="POST" id="bookingForm">
         @csrf
+
+        <!-- Header Section -->
         <div class="flex flex-col gap-[6px] px-5">
             <input type="hidden" name="room_id" value="{{ $room->id ?? '' }}">
-            <h1 class="font-semibold text-lg">Your Informations</h1>
-            <p class="text-sm text-ngekos-grey">Fill the fields below with your valid data</p>
+            <h1 class="font-semibold text-lg">Your Information</h1>
+            <p class="text-sm text-ngekos-grey">Please fill in all required fields with valid information</p>
         </div>
-        <div id="InputContainer" class="flex flex-col gap-[18px]">
+
+        <!-- User Input Fields -->
+        <div id="UserInputFields" class="flex flex-col gap-[18px]">
+            <!-- Full Name Field -->
             <div class="flex flex-col w-full gap-2 px-5">
-                <p class="font-semibold">Complete Name</p>
-                <label
+                <label class="font-semibold">Full Name</label>
+                <div
                     class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300 @error('name') border-red-500 @enderror">
-                    <img src="{{ asset('assets/images/icons/profile-2user.svg') }}" class="w-5 h-5 flex shrink-0"
+                    <img src="{{ asset('assets/images/icons/profile-2user.svg') }}" class="w-5 h-5 flex-shrink-0"
                         alt="icon">
-                    <input type="text" name="name" id=""
+                    <input type="text" name="name"
                         class="appearance-none outline-none w-full font-semibold placeholder:text-ngekos-grey placeholder:font-normal"
-                        placeholder="Write your name" value="{{ old('name') }}">
-                </label>
+                        placeholder="Enter your full name" value="{{ old('name') }}" required>
+                </div>
                 @error('name')
                     <p class="text-sm text-red-500">{{ $message }}</p>
                 @enderror
             </div>
+
+            <!-- Email Field -->
             <div class="flex flex-col w-full gap-2 px-5">
-                <p class="font-semibold">Email Address</p>
-                <label
-                    class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300  @error('email') border-red-500 @enderror">
-                    <img src="{{ asset('assets/images/icons/sms.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
-                    <input type="email" name="email" id=""
+                <label class="font-semibold">Email Address</label>
+                <div
+                    class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300 @error('email') border-red-500 @enderror">
+                    <img src="{{ asset('assets/images/icons/sms.svg') }}" class="w-5 h-5 flex-shrink-0" alt="icon">
+                    <input type="email" name="email"
                         class="appearance-none outline-none w-full font-semibold placeholder:text-ngekos-grey placeholder:font-normal"
-                        placeholder="Write your email" value="{{ old('email') }}">
-                    {{-- old mencegah data hilang --}}
-                </label>
-                {{-- tampilkan pesan error jika dta tidak ad atau tdidak sesuai --}}
+                        placeholder="Enter your email address" value="{{ old('email') }}" required>
+                </div>
                 @error('email')
                     <p class="text-sm text-red-500">{{ $message }}</p>
                 @enderror
             </div>
+
+            <!-- Phone Number Field -->
+            <div class="flex flex-col w-full gap-2 px-5">
+                <label class="font-semibold">Phone Number</label>
+                <div
+                    class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300 @error('phone_number') border-red-500 @enderror">
+                    <img src="{{ asset('assets/images/icons/call.svg') }}" class="w-5 h-5 flex-shrink-0" alt="icon">
+                    <input type="tel" name="phone_number"
+                        class="appearance-none outline-none w-full font-semibold placeholder:text-ngekos-grey placeholder:font-normal"
+                        placeholder="Enter your phone number" value="{{ old('phone_number') }}" required>
+                </div>
+                @error('phone_number')
+                    <p class="text-sm text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
         </div>
-        <div class="flex flex-col w-full gap-2 px-5">
-            <p class="font-semibold">Phone No</p>
-            <label
-                class="flex items-center w-full rounded-full p-[14px_20px] gap-3 bg-white focus-within:ring-1 focus-within:ring-[#91BF77] transition-all duration-300  @error('phone') border-red-500 @enderror">
-                <img src="{{ asset('assets/images/icons/call.svg') }}" class="w-5 h-5 flex shrink-0" alt="icon">
-                <input type="tel" name="phone_number" id=""
-                    class="appearance-none outline-none w-full font-semibold placeholder:text-ngekos-grey placeholder:font-normal"
-                    placeholder="Write your phone" value="{{ old('phone_number') }}">
-            </label>
-            @error('phone')
-                <p class="text-sm text-red-500">{{ $message }}</p>
-            @enderror
-        </div>
-        </div>
+
+        <!-- Duration Selector -->
         <div class="flex items-center justify-between px-5">
-            <p class="font-semibold">Duration in Month</p>
+            <label class="font-semibold">Rental Duration (Months)</label>
             <div class="relative flex items-center gap-[10px] w-fit">
-                <button type="button" id="Minus" class="w-12 h-12 flex-shrink-0">
-                    <img src="{{ asset('assets/images/icons/minus.svg') }}" alt="icon">
+                <button type="button" id="Minus"
+                    class="w-12 h-12 flex-shrink-0 bg-white rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center">
+                    <img src="{{ asset('assets/images/icons/minus.svg') }}" alt="minus" class="w-5 h-5">
                 </button>
                 <input id="Duration" type="text" value="1" name="duration"
                     class="appearance-none outline-none !bg-transparent w-[42px] text-center font-semibold text-[22px] leading-[33px]"
-                    inputmode="numeric" pattern="[0-9]*">
-                <button type="button" id="Plus" class="w-12 h-12 flex-shrink-0">
-                    <img src="{{ asset('assets/images/icons/plus.svg') }}" alt="icon">
+                    inputmode="numeric" pattern="[0-9]*" required>
+                <button type="button" id="Plus"
+                    class="w-12 h-12 flex-shrink-0 bg-white rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center">
+                    <img src="{{ asset('assets/images/icons/plus.svg') }}" alt="plus" class="w-5 h-5">
                 </button>
             </div>
         </div>
-        <div class="flex flex-col gap-2">
-            <p class="font-semibold px-5">Moving Date</p>
-            <div class="swiper w-full overflow-x-hidden">
+
+        <!-- Date Selection Section -->
+        <div class="flex flex-col gap-3">
+            <label class="font-semibold px-5">Select Move-in Date</label>
+            <div class="swiper w-full overflow-hidden">
                 <div class="swiper-wrapper select-dates">
+                    <!-- Date options will be generated by JavaScript -->
                 </div>
             </div>
+            @error('start_date')
+                <p class="text-sm text-red-500 px-5">{{ $message }}</p>
+            @enderror
         </div>
-        </div>
-        <div id="BottomNav" class="relative flex w-full h-[132px] shrink-0 bg-white">
-            <div class="fixed bottom-5 w-full max-w-[640px] px-5 z-10">
-                <div class="flex items-center justify-between rounded-[40px] py-4 px-6 bg-ngekos-black">
+        <div id="BottomNavigationBar" class="relative bottom-0 left-0 right-0 z-500">
+            <div class="w-full max-w-[640px] mx-auto px-5 pb-5 pt-3 bg-white">
+                <div class="flex items-center justify-between rounded-[40px] py-4 px-6 bg-ngekos-black shadow-xl">
                     <div class="flex flex-col gap-[2px]">
-                        <p id="prices" class="font-bold text-xl leading-[30px] text-white">
-                            <!-- price dari js -->
-                            <input type="date" name="start_date"
-                                value="{{ $transaction['start_date'] ?? now()->format('Y-m-d') }}" required>
-
+                        <p id="price" class="font-bold text-xl leading-[30px] text-white">
+                            Rp 0
                         </p>
-                        <span class="text-sm text-white">Grand Total</span>
+                        <span class="text-sm text-gray-300">Grand Total</span>
                     </div>
                     <button type="submit"
-                        class="flex shrink-0 rounded-full py-[14px] px-5 bg-ngekos-orange font-bold text-white">Book
-                        Now</button>
+                        class="flex shrink-0 rounded-full py-[14px] px-5 bg-ngekos-orange hover:bg-orange-600 font-bold text-white transition-colors duration-200">
+                        Book Now
+                    </button>
                 </div>
             </div>
         </div>
+        <!-- Spacer to make room for fixed bottom -->
+        <div class="h-[150px]"></div>
+
+        <!-- Bottom Navigation / Submit Section - Fixed Position -->
+
     </form>
 @endsection
+
 @section('scripts')
     <script>
-        const defaultPrice = {{ $room->price_per_month }};
+        // Pass room price to JavaScript
+        const defaultPrice = {{ $room->price_per_month ?? 793444 }};
     </script>
     <script src="{{ asset('assets/js/cust-info.js') }}"></script>
 @endsection

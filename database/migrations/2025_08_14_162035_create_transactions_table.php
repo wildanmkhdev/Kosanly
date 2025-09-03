@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone_number');
-            $table->enum('payment_method', ['down_paymennt', 'full_payment'])->nullable();
+            $table->enum('payment_method', ['down_payment', 'full_payment'])->nullable();
             $table->string('payment_status')->nullable();
             $table->date('start_date');
             $table->integer('duration');

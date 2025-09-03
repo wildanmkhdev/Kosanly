@@ -67,4 +67,10 @@ class BookingController extends Controller
         $room = $this->boardingHouseRepository->getBoardingHouseRoomById($transaction['room_id']);
         return view('pages.booking.checkout', compact('transaction', 'boardingHouse', 'room'));
     }
+    public function payment(Request $request)
+    {
+        $this->transactionRepository->saveTransactionDataToSession($request->all());
+        $transaction = $this->transactionRepository->saveTransaction($this->transactionRepository->getTransactionDataFromSession());
+        dd($transaction);
+    }
 }
