@@ -24,10 +24,9 @@ class CostumerInformationStoreRequest extends FormRequest
         return [
             //
             'room_id' => 'required|integer|exists:rooms,id',
-
             'name' => 'required|string',
             'email' => 'required|email',
-            'phone' => 'required|string',
+            'phone_number' => 'required|string',
             'duration' => 'required',
             'start_date' => 'required'
         ];

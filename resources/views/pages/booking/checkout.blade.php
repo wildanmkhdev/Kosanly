@@ -90,7 +90,7 @@
                     <img src="assets/images/icons/call.svg" class="w-6 h-6 flex shrink-0" alt="icon">
                     <p class="text-ngekos-grey">Phone</p>
                 </div>
-                <p class="font-semibold">{{ $transaction['phone'] }}</p>
+                <p class="font-semibold">{{ $transaction['phone_number'] }}</p>
             </div>
         </div>
     </div>
@@ -135,7 +135,7 @@
             <div id="TabButton-Container" class="flex items-center justify-between border-b border-[#F1F2F6] gap-[18px]">
                 <label class="tab-link group relative flex flex-col justify-between gap-4"
                     data-target-tab="#DownPayment-Tab">
-                    <input type="radio" name="Payment" value="down"
+                    <input type="radio" name="payment_method" value="down_payment"
                         class="absolute -z-10 top-1/2 left-1/2 opacity-0" checked>
                     <div class="flex items-center gap-3 mx-auto">
                         <div class="relative w-6 h-6">
@@ -155,7 +155,7 @@
                 <div class="flex h-6 w-[1px] border border-[#F1F2F6] mb-auto"></div>
                 <label class="tab-link group relative flex flex-col justify-between gap-4"
                     data-target-tab="#FullPayment-Tab">
-                    <input type="radio" name="Payment" value="full"
+                    <input type="radio" name="payment_method" value="full_payment"
                         class="absolute -z-10 top-1/2 left-1/2 opacity-0">
                     <div class="flex items-center gap-3 mx-auto">
                         <div class="relative w-6 h-6">

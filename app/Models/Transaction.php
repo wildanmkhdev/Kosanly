@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Transaction extends Model
 {
     //
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'code',
         'boarding_house_id',
         'room_id',
         'name',
         'email',
-        'phone',
+        'phone_number',
         'payment_method',
         'payment_status',
         'start_date',
