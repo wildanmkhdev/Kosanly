@@ -99,7 +99,7 @@ class BoardingHouseForm
                                             ->default(true)
                                             ->required(),
                                         Repeater::make('images')
-                                            ->relationship('roomImages')
+                                            ->relationship('images')
                                             ->schema([
                                                 FileUpload::make('image')
                                                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/webp', 'image/avif'])

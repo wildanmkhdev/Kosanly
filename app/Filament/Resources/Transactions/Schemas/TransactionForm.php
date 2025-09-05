@@ -16,7 +16,7 @@ class TransactionForm
                 TextInput::make('code')
                     ->required(),
                 Select::make('boarding_house_id')
-                    ->relationship('boarding_house', 'name')
+                    ->relationship('boardingHouse', 'name')
                     ->required(),
                 Select::make('room_id')
                     ->relationship('room', 'name')

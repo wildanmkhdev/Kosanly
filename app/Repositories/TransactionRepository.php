@@ -34,6 +34,13 @@ class TransactionRepository implements TransactionRepositoryInterface
 
     return $transaction;
   }
+  public function getTransactionByCode($code)
+  {
+    // return Transaction::where('code', $code)->first();
+    return Transaction::with(['boardingHouse.city', 'room.images'])
+      ->where('code', $code)
+      ->first();
+  }
 
   private function prepareTransactionData($data, $room)
   {
