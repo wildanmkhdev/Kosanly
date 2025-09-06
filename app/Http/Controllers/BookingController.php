@@ -105,7 +105,7 @@ class BookingController extends Controller
             return abort(404, 'Transaksi tidak ditemukan');
         }
 
-        return view('pages.booking.success', compact('transaction'))
+        return view('pages.booking.success', compact('transaction'));
     }
     
 }
