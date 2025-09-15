@@ -8,7 +8,7 @@
             class="w-12 h-12 flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-white">
             <img src="assets/images/icons/arrow-left.svg" class="w-[28px] h-[28px]" alt="icon">
         </a>
-        <p class="font-semibold">Search Results</p>
+        <p class="font-semibold">Search Result</p>
         <div class="dummy-btn w-12"></div>
     </div>
     <div id="Header" class="relative flex items-center justify-between gap-2 px-5 mt-[18px]">
