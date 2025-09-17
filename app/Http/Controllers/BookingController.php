@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookingShowRequest;
 use App\Http\Requests\CostumerInformationStoreRequest;
 use App\interfaces\BoardingHouseRepositoryInterface;
 use App\interfaces\TransactionRepositoryInterface;
@@ -19,7 +20,15 @@ class BookingController extends Controller
     }
     public function check()
     {
-        return view('pages.check-booking');
+        return view('pages.booking.check-booking');
+    }
+    public function show(BookingShowRequest $request)
+    {
+        $transaction = $this->transactionRepository->getTransactionByCodeEmailPhone($request->code, $request->email, $request->phone_number);
+        if (!$transaction) {
+            return redirect()->back()->with('error', 'data trasnsaksi tidak ditemukan');
+        }
+        return view("pages.booking.detail", compact('transaction'));
     }
     public function booking(Request $request, $slug)
     {
@@ -107,5 +116,4 @@ class BookingController extends Controller
 
         return view('pages.booking.success', compact('transaction'));
     }
-    
 }
