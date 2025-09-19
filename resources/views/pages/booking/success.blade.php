@@ -65,7 +65,6 @@
             <a href="{{ route('home') }}"
                 class="w-full rounded-full p-[14px_20px] text-center font-bold text-white bg-ngekos-orange">Explore Other
                 Kos</a>
-
             <form action="{{ route('check-booking.show') }}" method="POST">
                 @csrf
                 <input type="hidden" name="code" value="{{ $transaction->code }}">
